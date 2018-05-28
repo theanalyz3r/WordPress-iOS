@@ -168,6 +168,20 @@ class WPRichTextFormatter {
         return attrString
     }
 
+    /// Processes the supplied string, removing Gutenberg block tags that
+    /// look this way:
+    /// <p><!-- wp:TAG_NAME --></p>
+    /// <p><!-- /wp:TAG_NAME --></p>
+    ///
+    /// - Parameters:
+    ///     - string: The string to process.
+    ///
+    /// - Returns: A string without Gutenberg block tags.
+    ///
+    func processAndExtractGutenbergBlockTags(_ string: String) -> String {
+        return string.replacingMatches(of: "<p><!-- /?wp:.*? --></p>", with: "")
+    }
+
 
     /// Processes the supplied string, scanning for HTML tags that need special
     /// handling.
@@ -183,9 +197,10 @@ class WPRichTextFormatter {
         guard string.count > 0 else {
             return (string, attachments)
         }
-
+        
         var processedString = ""
-        let scanner = Scanner(string: string)
+        let stringWithoutGutenbergBlockTags = processAndExtractGutenbergBlockTags(string)
+        let scanner = Scanner(string: stringWithoutGutenbergBlockTags)
         scanner.charactersToBeSkipped = nil
 
         // Scan for tags we need to flag or replace appending scanned substrings
