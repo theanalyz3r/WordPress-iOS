@@ -798,11 +798,6 @@ open class ReaderDetailViewController: UIViewController, UIViewControllerRestora
     }
 
     fileprivate func configureSaveForLaterButton() {
-        guard FeatureFlag.saveForLater.enabled else {
-            saveForLaterButton.isHidden = true
-            return
-        }
-
         let size = Gridicon.defaultSize
         let icon = Gridicon.iconOfType(.bookmarkOutline, withSize: size)
         let selectedIcon = Gridicon.iconOfType(.bookmark, withSize: size)

@@ -44,13 +44,6 @@ class ReaderPostCellActions: NSObject, ReaderPostCellDelegate {
         toggleSavedForLater(for: post)
     }
 
-    func readerCell(_ cell: ReaderPostCardCell, shareActionForProvider provider: ReaderPostContentProvider, fromView sender: UIView) {
-        guard let post = provider as? ReaderPost else {
-            return
-        }
-        sharePost(post, fromView: sender)
-    }
-
     func readerCell(_ cell: ReaderPostCardCell, visitActionForProvider provider: ReaderPostContentProvider) {
         guard let post = provider as? ReaderPost else {
             return
@@ -124,13 +117,6 @@ class ReaderPostCellActions: NSObject, ReaderPostCellDelegate {
 
     fileprivate func toggleLikeForPost(_ post: ReaderPost) {
         ReaderLikeAction().execute(with: post, context: context)
-    }
-
-    fileprivate func sharePost(_ post: ReaderPost, fromView anchorView: UIView) {
-        guard let origin = origin else {
-            return
-        }
-        ReaderShareAction().execute(with: post, context: context, anchor: anchorView, vc: origin)
     }
 }
 

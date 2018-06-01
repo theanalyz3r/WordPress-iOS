@@ -20,7 +20,6 @@ fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
     func readerCell(_ cell: ReaderPostCardCell, commentActionForProvider provider: ReaderPostContentProvider)
     func readerCell(_ cell: ReaderPostCardCell, followActionForProvider provider: ReaderPostContentProvider)
     func readerCell(_ cell: ReaderPostCardCell, saveActionForProvider provider: ReaderPostContentProvider)
-    func readerCell(_ cell: ReaderPostCardCell, shareActionForProvider provider: ReaderPostContentProvider, fromView sender: UIView)
     func readerCell(_ cell: ReaderPostCardCell, visitActionForProvider provider: ReaderPostContentProvider)
     func readerCell(_ cell: ReaderPostCardCell, likeActionForProvider provider: ReaderPostContentProvider)
     func readerCell(_ cell: ReaderPostCardCell, menuActionForProvider provider: ReaderPostContentProvider, fromView sender: UIView)
@@ -209,9 +208,9 @@ fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
     }
 
     fileprivate func setupSaveForLaterButton() {
-        let size = FeatureFlag.saveForLater.enabled ? Gridicon.defaultSize : CGSize(width: 20, height: 20)
-        let icon = FeatureFlag.saveForLater.enabled ? Gridicon.iconOfType(.bookmarkOutline, withSize: size) : Gridicon.iconOfType(.share, withSize: size)
-        let highlightedIcon = FeatureFlag.saveForLater.enabled ? Gridicon.iconOfType(.bookmark, withSize: size) : icon
+        let size = Gridicon.defaultSize
+        let icon = Gridicon.iconOfType(.bookmarkOutline, withSize: size)
+        let highlightedIcon = Gridicon.iconOfType(.bookmark, withSize: size)
 
         let tintedIcon = icon.imageWithTintColor(WPStyleGuide.greyLighten10())
         let tintedHighlightedIcon = highlightedIcon.imageWithTintColor(WPStyleGuide.mediumBlue())
@@ -395,10 +394,7 @@ fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
 
         configureCommentActionButton()
         configureLikeActionButton()
-
-        if FeatureFlag.saveForLater.enabled {
-            configureSaveForLaterButton()
-        }
+        configureSaveForLaterButton()
     }
 
     fileprivate func resetActionButton(_ button: UIButton) {
@@ -496,10 +492,9 @@ fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
             insetFollowButtonIcon(false)
         } else {
             // show title text
-
             let likeTitle = WPStyleGuide.likeCountForDisplay(likeCount)
             let commentTitle = WPStyleGuide.commentCountForDisplay(commentCount)
-            let saveForLaterTitle = FeatureFlag.saveForLater.enabled ? NSLocalizedString("Save", comment: "Verb. Button title.  Tap to save a post for later.") : NSLocalizedString("Share", comment: "Verb. Button title.  Tap to share a post.")
+            let saveForLaterTitle = NSLocalizedString("Save", comment: "Verb. Button title.  Tap to save a post for later.")
             let followTitle = WPStyleGuide.followStringForDisplay(false)
             let followingTitle = WPStyleGuide.followStringForDisplay(true)
 
@@ -577,12 +572,9 @@ fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
         guard let provider = contentProvider else {
             return
         }
-        if FeatureFlag.saveForLater.enabled {
-            delegate?.readerCell(self, saveActionForProvider: provider)
-            configureSaveForLaterButton()
-        } else {
-            delegate?.readerCell(self, shareActionForProvider: provider, fromView: sender)
-        }
+
+        delegate?.readerCell(self, saveActionForProvider: provider)
+        configureSaveForLaterButton()
     }
 
     @IBAction func didTapActionButton(_ sender: UIButton) {
@@ -629,11 +621,7 @@ extension ReaderPostCardCell: Accessible {
     func prepareForVoiceOver() {
         prepareCardForVoiceOver()
         prepareHeaderButtonForVoiceOver()
-        if FeatureFlag.saveForLater.enabled {
-            prepareSaveForLaterForVoiceOver()
-        } else {
-            prepareShareForVoiceOver()
-        }
+        prepareSaveForLaterForVoiceOver()
         prepareCommentsForVoiceOver()
         prepareLikeForVoiceOver()
         prepareMenuForVoiceOver()
@@ -694,12 +682,6 @@ extension ReaderPostCardCell: Accessible {
         let isSavedForLater = contentProvider?.isSavedForLater() ?? false
         saveForLaterButton.accessibilityLabel = isSavedForLater ? NSLocalizedString("Saved Post", comment: "Accessibility label for the 'Save Post' button when a post has been saved.") : NSLocalizedString("Save post", comment: "Accessibility label for the 'Save Post' button.")
         saveForLaterButton.accessibilityHint = isSavedForLater ? NSLocalizedString("Remove this post from my saved posts.", comment: "Accessibility hint for the 'Save Post' button when a post is already saved.") : NSLocalizedString("Saves this post for later.", comment: "Accessibility hint for the 'Save Post' button.")
-        saveForLaterButton.accessibilityTraits = UIAccessibilityTraitButton
-    }
-
-    private func prepareShareForVoiceOver() {
-        saveForLaterButton.accessibilityLabel = NSLocalizedString("Share", comment: "Spoken accessibility label")
-        saveForLaterButton.accessibilityHint = NSLocalizedString("Shares this post", comment: "Spoken accessibility hint for Share buttons")
         saveForLaterButton.accessibilityTraits = UIAccessibilityTraitButton
     }
 

@@ -7,7 +7,6 @@ enum FeatureFlag: Int {
     case activity
     case usernameChanging
     case zendeskMobile
-    case saveForLater
     case gifSupportInReaderDetail
 
     /// Returns a boolean indicating if the feature is enabled
@@ -23,8 +22,6 @@ enum FeatureFlag: Int {
             return BuildConfiguration.current == .localDeveloper
         case .zendeskMobile:
             return BuildConfiguration.current ~= [.localDeveloper, .a8cBranchTest, .a8cPrereleaseTesting]
-        case .saveForLater:
-            return BuildConfiguration.current == .localDeveloper
         case .gifSupportInReaderDetail:
             return BuildConfiguration.current ~= [.localDeveloper, .a8cBranchTest, .a8cPrereleaseTesting]
         }

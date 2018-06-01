@@ -269,10 +269,7 @@ enum ReaderDefaultMenuItemOrder: Int {
         }
 
         defaultSectionItems.append(searchMenuItem())
-
-        if FeatureFlag.saveForLater.enabled {
-            defaultSectionItems.append(savedPostsMenuItem())
-        }
+        defaultSectionItems.append(savedPostsMenuItem())
 
         // Sort the items ascending.
         defaultSectionItems.sort(by: <)
