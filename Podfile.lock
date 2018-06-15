@@ -168,7 +168,7 @@ DEPENDENCIES:
   - WordPress-Aztec-iOS/WordPressEditor (from `https://github.com/wordpress-mobile/AztecEditor-iOS.git`, commit `c38d29b09cc9710ef307891f76a02c80a7002a59`)
   - WordPressAuthenticator (from `https://github.com/wordpress-mobile/WordPressAuthenticator-iOS.git`, commit `d0b3c02`)
   - WordPressKit (= 1.1)
-  - WordPressShared (~> 1.0.6)
+  - WordPressShared (from `https://github.com/wordpress-mobile/WordPress-iOS-Shared.git`, commit `f47e0038ede0881d48ea248c2c0254ce28fe536c`)
   - WordPressUI (= 1.0.4)
   - WPMediaPicker (from `https://github.com/wordpress-mobile/MediaPicker-iOS.git`, commit `b5ae03494596e3da7a8f814f9cab8e96ca345bc8`)
   - wpxmlrpc (= 0.8.3)
@@ -202,7 +202,6 @@ SPEC REPOS:
     - SVProgressHUD
     - UIDeviceIdentifier
     - WordPressKit
-    - WordPressShared
     - WordPressUI
     - wpxmlrpc
     - ZendeskSDK
@@ -217,6 +216,9 @@ EXTERNAL SOURCES:
   WordPressAuthenticator:
     :commit: d0b3c02
     :git: https://github.com/wordpress-mobile/WordPressAuthenticator-iOS.git
+  WordPressShared:
+    :commit: f47e0038ede0881d48ea248c2c0254ce28fe536c
+    :git: https://github.com/wordpress-mobile/WordPress-iOS-Shared.git
   WPMediaPicker:
     :commit: b5ae03494596e3da7a8f814f9cab8e96ca345bc8
     :git: https://github.com/wordpress-mobile/MediaPicker-iOS.git
@@ -231,6 +233,9 @@ CHECKOUT OPTIONS:
   WordPressAuthenticator:
     :commit: d0b3c02
     :git: https://github.com/wordpress-mobile/WordPressAuthenticator-iOS.git
+  WordPressShared:
+    :commit: f47e0038ede0881d48ea248c2c0254ce28fe536c
+    :git: https://github.com/wordpress-mobile/WordPress-iOS-Shared.git
   WPMediaPicker:
     :commit: b5ae03494596e3da7a8f814f9cab8e96ca345bc8
     :git: https://github.com/wordpress-mobile/MediaPicker-iOS.git
@@ -271,6 +276,6 @@ SPEC CHECKSUMS:
   wpxmlrpc: bfc572f62ce7ee897f6f38b098d2ba08732ecef4
   ZendeskSDK: 2cda4db2ba6b10ba89aeb8dddaa94e97c85946a0
 
-PODFILE CHECKSUM: 87b682e6d637c0bade68f9138a415ea63f903da4
+PODFILE CHECKSUM: 2c27c87fc9b8ab82417285c4370a3bb700b8d68d
 
 COCOAPODS: 1.5.2
